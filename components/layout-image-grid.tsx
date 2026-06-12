@@ -15,10 +15,10 @@ const SkeletonOne = () => {
   return (
     <div>
       <p className="font-oldLondon font-bold md:text-4xl text-xl text-white">
-        Tokyo Nights
+        Downtown Penthouses
       </p>
       <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
-        Exploring the vibrant nightlife and neon-lit streets of Tokyo's urban landscape.
+        Exploring luxury high-rise apartments with stunning city views.
       </p>
     </div>
   );
@@ -28,10 +28,10 @@ const SkeletonTwo = () => {
   return (
     <div>
       <p className="font-oldLondon font-bold md:text-4xl text-xl text-white">
-        Urban Portraits
+        Commercial Properties
       </p>
       <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
-        Capturing the essence of city life through intimate street photography and urban portraiture.
+        Premium office spaces and retail locations in the heart of the city.
       </p>
     </div>
   );
@@ -41,10 +41,10 @@ const SkeletonThree = () => {
   return (
     <div>
       <p className="font-oldLondon font-bold md:text-4xl text-xl text-white">
-        New Zealand
+        Luxury Apartments
       </p>
       <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
-        Documenting the raw beauty and untamed wilderness of New Zealand's landscapes.
+        Modern luxury apartments offering breathtaking panoramic views and high-end amenities.
       </p>
     </div>
   );
@@ -54,10 +54,10 @@ const SkeletonFour = () => {
   return (
     <div>
       <p className="font-oldLondon font-bold md:text-4xl text-xl text-white">
-        Iceland
+        Modern Villas
       </p>
       <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
-        Capturing the ethereal beauty of Iceland's dramatic landscapes and natural wonders.
+        Spacious and elegant modern villas featuring contemporary design and private pools.
       </p>
     </div>
   );
@@ -112,7 +112,7 @@ export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
             onClick={() => handleClick(card)}
             className={cn(
               card.className,
-              "relative overflow-hidden",
+              "relative overflow-hidden group",
               selected?.id === card.id
                 ? "rounded-3xl cursor-pointer absolute inset-0 h-1/2 w-full md:w-1/2 m-auto z-50 flex justify-center items-center flex-wrap flex-col"
                 : lastSelected?.id === card.id
@@ -123,6 +123,11 @@ export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
           >
             {selected?.id === card.id && <SelectedCard selected={selected} />}
             <ImageComponent card={card} />
+            {selected?.id !== card.id && (
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out z-30 flex items-end h-1/2 pointer-events-none">
+                <p className="text-white font-bold text-lg">Click to view details</p>
+              </div>
+            )}
           </motion.div>
         </div>
       ))}

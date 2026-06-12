@@ -36,8 +36,8 @@ export default function FeaturedCollections() {
               </div>
 
               {/* Content positioned at the bottom */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-0 group-hover:translate-y-0 transition-transform duration-300">
-                <h3 className="text-2xl text-white mb-2 group-hover:text-white/90 transition-colors">
+              <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                <h3 className="text-2xl text-white mb-2 transition-colors">
                   {collection.title}
                 </h3>
                 <p className="text-white/80 mb-4 line-clamp-2 text-sm group-hover:text-white/90 transition-colors">

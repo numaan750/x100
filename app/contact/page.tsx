@@ -1,13 +1,22 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { Mail, MapPin, Phone, Instagram, Twitter, Facebook, Youtube, Linkedin, Github } from "lucide-react"
-import { ContactForm } from "@/components/contact-form"
-import { motion } from "framer-motion"
-import FeaturedCollections from "@/components/featured-collections"
-import AnimatedButton from "@/components/animated-button"
-import { ArrowRight } from "lucide-react"
-
+import Image from "next/image";
+import {
+  Mail,
+  MapPin,
+  Phone,
+  Instagram,
+  Twitter,
+  Facebook,
+  Youtube,
+  Linkedin,
+  Github,
+} from "lucide-react";
+import { ContactForm } from "@/components/contact-form";
+import { motion } from "framer-motion";
+import FeaturedCollections from "@/components/featured-collections";
+import AnimatedButton from "@/components/animated-button";
+import { ArrowRight } from "lucide-react";
 
 export default function ContactPage() {
   return (
@@ -15,11 +24,11 @@ export default function ContactPage() {
       {/* Spacer for header
       <div className="header-height"></div> */}
 
-       {/* Hero Section */}
+      {/* Hero Section */}
       <section className="relative h-[50vh] w-full">
         <Image
           src="/new zealand/new-zealand-17.jpg?height=800&width=1920"
-          alt="Contact X100"
+          alt="Contact EliteHomes"
           fill
           priority
           className="object-cover"
@@ -46,7 +55,8 @@ export default function ContactPage() {
           >
             <h1 className="text-4xl md:text-5xl mb-6">Get in Touch</h1>
             <p className="text-primary/60 mb-8 max-w-md">
-              I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision.
+              I'm always open to discussing property viewings, real estate
+              investments, or helping you find your dream home.
             </p>
 
             <motion.div
@@ -68,7 +78,7 @@ export default function ContactPage() {
                 {
                   icon: <Mail className="text-primary mt-1" size={20} />,
                   title: "Email",
-                  content: "contact@x100.com",
+                  content: "contact@EliteHomes.com",
                 },
                 {
                   icon: <MapPin className="text-primary mt-1" size={20} />,
@@ -101,12 +111,20 @@ export default function ContactPage() {
               <h3 className="text-xl mb-4">Keep Up To Date</h3>
               <div className="flex flex-wrap gap-1">
                 {[
-                  { icon: <Instagram size={26} />, label: "Instagram", href: "https://github.com/lilxyzz" },
-                  { icon: <Twitter size={26} />, label: "Twitter", href: "https://github.com/lilxyzz" },
-                  { icon: <Facebook size={26} />, label: "Facebook", href: "https://github.com/lilxyzz" },
-                  { icon: <Youtube size={26} />, label: "Youtube", href: "https://github.com/lilxyzz" },
-                  // { icon: <Linkedin size={20} />, label: "Linkedin", href: "https://linkedin.com" },
-                  { icon: <Github size={26} />, label: "Github", href: "https://github.com/lilxyzz" },
+                  {
+                    icon: <Instagram size={26} />,
+                    label: "Instagram",
+                    href: "#",
+                  },
+                  { icon: <Twitter size={26} />, label: "Twitter", href: "#" },
+                  {
+                    icon: <Facebook size={26} />,
+                    label: "Facebook",
+                    href: "#",
+                  },
+                  { icon: <Youtube size={26} />, label: "Youtube", href: "#" },
+                  // { icon: <Linkedin size={20} />, label: "Linkedin", href: "#" },
+                  { icon: <Github size={26} />, label: "Github", href: "#" },
                 ].map((item) => (
                   <motion.a
                     key={item.label}
@@ -153,24 +171,24 @@ export default function ContactPage() {
           <div className="space-y-8">
             {[
               {
-                question: "Do you offer prints of your photographs?",
+                question: "Do you offer property viewings?",
                 answer:
-                  "Yes, most of my photographs are available as fine art prints. You can inquire about specific images through the contact form.",
+                  "Yes, we offer both in-person and virtual property tours. You can schedule a viewing through the contact form.",
               },
               {
-                question: "Are you available for commercial photography?",
+                question: "Are the apartments fully furnished?",
                 answer:
-                  "Absolutely. I work with brands and publications on commercial projects. Please reach out with details about your project for a custom quote.",
+                  "We offer both furnished and unfurnished options depending on the property. Please reach out with details about your preference.",
               },
               {
-                question: "Do you offer photography workshops?",
+                question: "How can I schedule a tour?",
                 answer:
-                  "Yes, I regularly host workshops both in-person and online. Join my newsletter to be notified when new workshop dates are announced.",
+                  "You can easily schedule a tour by reaching out via email or filling out our contact form. Our agents will respond promptly to arrange a time.",
               },
               {
-                question: "Can I license your photos for my website/publication?",
+                question: "Do you handle property management?",
                 answer:
-                  "Yes, licensing options are available for both digital and print use. Please contact me with details about your intended use for licensing information.",
+                  "Yes, we offer full-service property management for landlords and investors. Please contact us with details about your property for more information.",
               },
             ].map((item, index) => (
               <motion.div
@@ -188,7 +206,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-        {/* Featured Collections */}
+      {/* Featured Collections */}
       <section className="mt-20 mb-20 py-20 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -200,7 +218,8 @@ export default function ContactPage() {
           >
             <h2 className="text-3xl md:text-4xl mb-4">Featured Collections</h2>
             <p className="text-primary max-w-2xl mx-auto">
-              Explore some of my most popular photography collections from around the world
+              Explore some of my most popular photography collections from
+              around the world
             </p>
           </motion.div>
           <FeaturedCollections />
@@ -211,12 +230,16 @@ export default function ContactPage() {
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
           >
-            <AnimatedButton href="/showcase" variant="primary" icon={<ArrowRight size={18} />}>
+            <AnimatedButton
+              href="/showcase"
+              variant="primary"
+              icon={<ArrowRight size={18} />}
+            >
               View All Collections
             </AnimatedButton>
           </motion.div>
         </div>
       </section>
     </div>
-  )
+  );
 }

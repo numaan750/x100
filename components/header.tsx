@@ -1,68 +1,70 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Menu, X } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
-import { ThemeToggle } from "./theme-toggle"
-import Logo from "./logo"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ThemeToggle } from "./theme-toggle";
+import Logo from "./logo";
 
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Showcase", href: "/showcase" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
-]
+];
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isVisible, setIsVisible] = useState(true)
-  const [lastScrollY, setLastScrollY] = useState(0)
-  const pathname = usePathname()
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY
-      const isMobile = window.innerWidth < 768 // Check if device is mobile
-      
+      const currentScrollY = window.scrollY;
+      const isMobile = window.innerWidth < 768; // Check if device is mobile
+
       // Update scrolled state
       if (currentScrollY > 10) {
-        setIsScrolled(true)
+        setIsScrolled(true);
       } else {
-        setIsScrolled(false)
+        setIsScrolled(false);
       }
 
       // Handle header visibility - only hide after 20px scroll on mobile
       if (isMobile) {
         if (currentScrollY > 20 && currentScrollY > lastScrollY) {
           // Scrolling down and past 20px
-          setIsVisible(false)
+          setIsVisible(false);
         } else {
           // Scrolling up or before 20px
-          setIsVisible(true)
+          setIsVisible(true);
         }
       } else {
         // Desktop behavior
         if (currentScrollY > lastScrollY) {
-          setIsVisible(false)
+          setIsVisible(false);
         } else {
-          setIsVisible(true)
+          setIsVisible(true);
         }
       }
 
-      setLastScrollY(currentScrollY)
-    }
+      setLastScrollY(currentScrollY);
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [lastScrollY])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   return (
     <header
       className={`fixed top-2 left-2 right-2 z-50 transition-all duration-300 header-height ${
-        isScrolled ? "bg-background backdrop-blur-md shadow-sm" : "bg-transparent"
+        isScrolled
+          ? "bg-background backdrop-blur-md shadow-sm"
+          : "bg-transparent"
       } ${!isVisible ? "-translate-y-[80px]" : "translate-y-0"}`}
     >
       <div className="max-w-8xl mx-auto px-4 sm:px-6 h-full">
@@ -76,10 +78,9 @@ export default function Header() {
                 isScrolled || pathname !== "/" ? "text-primary" : "text-primary"
               }`}
             >
-              X100
+              EliteHomes
             </Link>
           </div>
-        
 
           {/* Desktop Navigation - Centered */}
           <nav className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-8 items-center p-3 text-2xl  duration-300w-10 h-10 flex items-center justify-center rounded-full bg-background/90 text-primary transition-colors">
@@ -88,9 +89,13 @@ export default function Header() {
                 key={item.name}
                 href={item.href}
                 className={`${
-                  pathname === item.href ? "text-primary font-medium border-b-[1px] border-border" : "hover:text-primary/80"
+                  pathname === item.href
+                    ? "text-primary font-medium border-b-[1px] border-border"
+                    : "hover:text-primary/80"
                 } ${
-                  isScrolled || pathname !== "/" ? "text-foreground" : "text-primary"
+                  isScrolled || pathname !== "/"
+                    ? "text-foreground"
+                    : "text-primary"
                 } px-1 py-2 text-sm transition-colors`}
               >
                 {item.name}
@@ -145,7 +150,9 @@ export default function Header() {
                   key={item.name}
                   href={item.href}
                   className={`block px-4 py-3 text-3xl font-old-london ${
-                    pathname === item.href ? "text-primary font-medium" : "text-foreground hover:text-primary/80"
+                    pathname === item.href
+                      ? "text-primary font-medium"
+                      : "text-foreground hover:text-primary/80"
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -160,5 +167,5 @@ export default function Header() {
         )}
       </AnimatePresence>
     </header>
-  )
+  );
 }

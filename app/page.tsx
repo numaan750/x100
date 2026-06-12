@@ -31,16 +31,16 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl mb-6">The Art of Visual Storytelling</h2>
+            <h2 className="text-3xl md:text-4xl mb-6">Welcome to Premium Real Estate</h2>
             <p className="text-primary-secondary mb-6">
-              Every photograph tells a story, captures an emotion, and preserves a moment in time. My work focuses on
-              finding beauty in both grand landscapes and subtle details.
+              Every property tells a story of comfort, luxury, and elegant design. Our focus is on
+              finding you the perfect home, providing premium real estate services tailored to your lifestyle.
             </p>
             <p className="text-primary-secondary mb-8">
-              Explore my collections from around the world, each with its own unique perspective and narrative.
+              Explore our exclusive listings of luxury apartments, beautiful family homes, and commercial properties.
             </p>
             <AnimatedButton href="/about" variant="outline" icon={<ArrowRight size={16} />}>
-              Learn More About The Journey
+              Learn More About Us
             </AnimatedButton>
           </motion.div>
           <motion.div
@@ -77,7 +77,7 @@ export default function Home() {
         >
           <h2 className="text-primary text-3xl md:text-4xl mb-6">Collaborate?</h2>
           <p className="text-primary max-w-2xl mx-auto mb-8">
-            Whether you're looking for prints, licensing, or a custom photography project, feel free to get in touch.
+            Whether you're looking to buy, rent, or list a property, our dedicated team is here to assist you every step of the way.
           </p>
           <AnimatedButton href="/contact" variant="primary" icon={<ArrowRight size={18} />}>
             Get in Touch
@@ -97,7 +97,7 @@ export default function Home() {
           >
             <h2 className="text-primary text-3xl md:text-4xl mb-4">Featured Collections</h2>
             <p className="text-primary max-w-2xl mx-auto">
-              Explore some of my most popular photography collections from around the world
+              Explore some of our most exclusive and sought-after properties
             </p>
           </motion.div>
           <FeaturedCollections />

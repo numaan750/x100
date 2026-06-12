@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { ArrowRight, Camera, Globe, Award, Users } from "lucide-react"
-import { motion } from "framer-motion"
-import AnimatedButton from "@/components/animated-button"
+import Image from "next/image";
+import { ArrowRight, Camera, Globe, Award, Users } from "lucide-react";
+import { motion } from "framer-motion";
+import AnimatedButton from "@/components/animated-button";
 
 export default function AboutPage() {
   return (
@@ -12,7 +12,7 @@ export default function AboutPage() {
       <section className="relative h-[50vh] w-full">
         <Image
           src="/Iceland/iceland-7.jpg?height=800&width=1920"
-          alt="About X100"
+          alt="About EliteHomes"
           fill
           priority
           className="object-cover"
@@ -25,7 +25,9 @@ export default function AboutPage() {
           transition={{ duration: 0.8 }}
         >
           <h1 className="text-4xl md:text-5xl text-white mb-4">About Me</h1>
-          <p className="text-white/90 text-lg max-w-2xl">The story behind the lens</p>
+          <p className="text-white/90 text-lg max-w-2xl">
+            The story behind the lens
+          </p>
         </motion.div>
       </section>
       <div className="header-height"></div>
@@ -55,22 +57,28 @@ export default function AboutPage() {
           >
             <h2 className="text-3xl md:text-4xl mb-6">The Journey</h2>
             <p className="text-primary mb-4">
-              I'm a professional photographer with over 10 years of experience capturing moments around the world. My
-              passion for photography began during a backpacking trip through Southeast Asia, where I discovered the
-              power of visual storytelling.
+              I'm a professional photographer with over 10 years of experience
+              capturing moments around the world. My passion for photography
+              began during a backpacking trip through Southeast Asia, where I
+              discovered the power of visual storytelling.
             </p>
             <p className="text-primary mb-4">
-              Since then, I've traveled to over 30 countries, documenting landscapes, cultures, and urban environments.
-              My work has been featured in publications like National Geographic, Condé Nast Traveler, and Vogue.
+              Since then, I've traveled to over 30 countries, documenting
+              landscapes, cultures, and urban environments. My work has been
+              featured in publications like National Geographic, Condé Nast
+              Traveler, and Vogue.
             </p>
             <p className="text-primary mb-6">
-              I believe that photography has the power to connect people across cultures and inspire a deeper
-              appreciation for our world. Each image I create aims to tell a story and evoke emotion.
+              I believe that photography has the power to connect people across
+              cultures and inspire a deeper appreciation for our world. Each
+              image I create aims to tell a story and evoke emotion.
             </p>
             <div className="flex flex-wrap gap-4">
               <div className="flex items-center gap-2">
                 <Camera size={20} className="text-primary" />
-                <span className="text-primary">Fujifilm x100vi & Leica M10</span>
+                <span className="text-primary">
+                  Fujifilm EliteHomesvi & Leica M10
+                </span>
               </div>
               <div className="flex items-center gap-2">
                 <Globe size={20} className="text-primary" />
@@ -128,8 +136,12 @@ export default function AboutPage() {
                 viewport={{ once: true }}
                 whileHover={{ y: -5, transition: { duration: 0.2 } }}
               >
-                <h3 className="text-primary-secondary dark:text-primary-foreground text-xl mb-4">{item.title}</h3>
-                <p className="text-primary-secondary dark:text-primary-foreground">{item.description}</p>
+                <h3 className="text-primary-secondary dark:text-primary-foreground text-xl mb-4">
+                  {item.title}
+                </h3>
+                <p className="text-primary-secondary dark:text-primary-foreground">
+                  {item.description}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -209,15 +221,22 @@ export default function AboutPage() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-primary text-3xl md:text-4xl mb-6">Collaborate?</h2>
+          <h2 className="text-primary text-3xl md:text-4xl mb-6">
+            Collaborate?
+          </h2>
           <p className="text-primary max-w-2xl mx-auto mb-8">
-            Whether you're looking for prints, licensing, or a custom photography project, feel free to get in touch.
+            Whether you're looking for prints, licensing, or a custom
+            photography project, feel free to get in touch.
           </p>
-          <AnimatedButton href="/contact" variant="primary" icon={<ArrowRight size={18} />}>
+          <AnimatedButton
+            href="/contact"
+            variant="primary"
+            icon={<ArrowRight size={18} />}
+          >
             Get in Touch
           </AnimatedButton>
         </motion.div>
       </section>
     </div>
-  )
+  );
 }

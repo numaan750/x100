@@ -1,6 +1,6 @@
-# Next.js Photography Portfolio | X100
+# Next.js Photography Portfolio | EliteHomes
 
-![X100 - Next.js Photography Portfolio](https://github.com/lilxyzz/x100/blob/main/public/X100-cover.webp)
+![EliteHomes - Next.js Photography Portfolio](https://github.com/lilxyzz/EliteHomes/blob/main/public/EliteHomes-cover.webp)
 
 A modern, responsive photography portfolio built with Next.js 15+, featuring dynamic collections, smooth animations, and a beautiful dark/light theme.
 
@@ -28,8 +28,8 @@ I created this theme as I’ve been considering purchasing a camera recently, an
 1. **Clone the repository**
 
    ```bash
-   git clone [https://github.com/lilxyzz/x100]
-   cd x100
+   git clone [https://github.com/lilxyzz/EliteHomes]
+   cd EliteHomes
    ```
 
 2. **Install dependencies**

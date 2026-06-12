@@ -1,45 +1,45 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState, useCallback, useEffect, useRef } from "react"
-import Image from "next/image"
-import PhotoAlbum from "react-photo-album"
-import "react-photo-album/masonry.css"
-import { X, ChevronLeft, ChevronRight, Camera } from "lucide-react"
-import type { Photo } from "@/lib/types"
-import { motion } from "framer-motion"
-import { cn } from "@/lib/utils"
+import type React from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
+import Image from "next/image";
+import PhotoAlbum from "react-photo-album";
+import "react-photo-album/masonry.css";
+import { X, ChevronLeft, ChevronRight, Camera } from "lucide-react";
+import type { Photo } from "@/lib/types";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 interface PhotoGalleryProps {
-  photos: Photo[]
-  className?: string
+  photos: Photo[];
+  className?: string;
 }
 
 // Define types for the NextJsImageComponent props
 interface CustomPhotoProps {
-  src: string
-  width: number
-  height: number
-  blurDataUrl?: string
-  [key: string]: any
+  src: string;
+  width: number;
+  height: number;
+  blurDataUrl?: string;
+  [key: string]: any;
 }
 
 interface ImageProps {
-  alt?: string
-  title?: string
-  sizes?: string
-  className?: string
-  onClick?: (event: React.MouseEvent) => void
+  alt?: string;
+  title?: string;
+  sizes?: string;
+  className?: string;
+  onClick?: (event: React.MouseEvent) => void;
 }
 
 interface RenderPhotoProps {
-  photo: CustomPhotoProps
-  imageProps: ImageProps
-  wrapperStyle: React.CSSProperties
+  photo: CustomPhotoProps;
+  imageProps: ImageProps;
+  wrapperStyle: React.CSSProperties;
 }
 
 // Custom renderer for Next.js Image
-const NextJsImageComponent = ({ 
+const NextJsImageComponent = ({
   photo,
   imageProps: { alt, title, sizes, className, onClick },
   wrapperStyle,
@@ -64,33 +64,33 @@ const NextJsImageComponent = ({
 };
 
 export function PhotoGallery({ photos, className }: PhotoGalleryProps) {
-  const [error, setError] = useState<string | null>(null)
-  const [lightboxOpen, setLightboxOpen] = useState(false)
-  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0)
-  const lightboxRef = useRef<HTMLDivElement>(null)
-  const thumbnailsRef = useRef<HTMLDivElement>(null)
+  const [error, setError] = useState<string | null>(null);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
+  const lightboxRef = useRef<HTMLDivElement>(null);
+  const thumbnailsRef = useRef<HTMLDivElement>(null);
 
   // Filter out invalid photos
-  const validPhotos = photos.filter(photo => {
+  const validPhotos = photos.filter((photo) => {
     if (!photo.src || !photo.width || !photo.height) {
-      console.warn('Invalid photo:', photo)
-      return false
+      console.warn("Invalid photo:", photo);
+      return false;
     }
-    return true
-  })
+    return true;
+  });
 
   // Handle image error
   const handlePhotoError = useCallback(() => {
-    console.error('Error loading photo')
-    setError('Failed to load some images. Please try refreshing the page.')
-  }, [])
+    console.error("Error loading photo");
+    setError("Failed to load some images. Please try refreshing the page.");
+  }, []);
 
   if (error) {
     return (
       <div className="flex items-center justify-center p-8 text-red-500">
         <p>{error}</p>
       </div>
-    )
+    );
   }
 
   if (validPhotos.length === 0) {
@@ -98,7 +98,7 @@ export function PhotoGallery({ photos, className }: PhotoGalleryProps) {
       <div className="flex items-center justify-center p-8 text-gray-500">
         <p>No photos available</p>
       </div>
-    )
+    );
   }
 
   // Format photos for the PhotoAlbum component
@@ -110,8 +110,8 @@ export function PhotoGallery({ photos, className }: PhotoGalleryProps) {
       shutterSpeed: "",
       iso: "",
       lens: "",
-      takenAt: ""
-    }
+      takenAt: "",
+    };
 
     return {
       src: photo.src,
@@ -119,78 +119,86 @@ export function PhotoGallery({ photos, className }: PhotoGalleryProps) {
       height: photo.height,
       alt: photo.alt || "Photo",
       photo: { ...photo, metadata },
-      key: photo.id || `photo-${index}-${photo.src}-${photo.width}-${photo.height}`,
+      key:
+        photo.id ||
+        `photo-${index}-${photo.src}-${photo.width}-${photo.height}`,
       onError: handlePhotoError,
-    }
-  })
+    };
+  });
 
   // Lightbox handlers
   const openLightbox = useCallback((index: number) => {
-    setCurrentPhotoIndex(index)
-    setLightboxOpen(true)
-    document.body.style.overflow = "hidden"
-  }, [])
+    setCurrentPhotoIndex(index);
+    setLightboxOpen(true);
+    document.body.style.overflow = "hidden";
+  }, []);
 
   const closeLightbox = useCallback(() => {
-    setLightboxOpen(false)
-    document.body.style.overflow = "auto"
-  }, [])
+    setLightboxOpen(false);
+    document.body.style.overflow = "auto";
+  }, []);
 
   const goToPrevious = useCallback(() => {
-    setCurrentPhotoIndex((prevIndex) => (prevIndex === 0 ? validPhotos.length - 1 : prevIndex - 1))
-  }, [validPhotos.length])
+    setCurrentPhotoIndex((prevIndex) =>
+      prevIndex === 0 ? validPhotos.length - 1 : prevIndex - 1,
+    );
+  }, [validPhotos.length]);
 
   const goToNext = useCallback(() => {
-    setCurrentPhotoIndex((prevIndex) => (prevIndex === validPhotos.length - 1 ? 0 : prevIndex + 1))
-  }, [validPhotos.length])
+    setCurrentPhotoIndex((prevIndex) =>
+      prevIndex === validPhotos.length - 1 ? 0 : prevIndex + 1,
+    );
+  }, [validPhotos.length]);
 
   // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (!lightboxOpen) return
+      if (!lightboxOpen) return;
 
-      if (e.key === "Escape") closeLightbox()
-      if (e.key === "ArrowLeft") goToPrevious()
-      if (e.key === "ArrowRight") goToNext()
-    }
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") goToPrevious();
+      if (e.key === "ArrowRight") goToNext();
+    };
 
-    window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [lightboxOpen, closeLightbox, goToPrevious, goToNext])
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxOpen, closeLightbox, goToPrevious, goToNext]);
 
   // Scroll thumbnails to center the current photo
   useEffect(() => {
     if (lightboxOpen && thumbnailsRef.current) {
-      const thumbnailWidth = 80
+      const thumbnailWidth = 80;
       const scrollPosition =
-        currentPhotoIndex * thumbnailWidth - thumbnailsRef.current.clientWidth / 2 + thumbnailWidth / 2
+        currentPhotoIndex * thumbnailWidth -
+        thumbnailsRef.current.clientWidth / 2 +
+        thumbnailWidth / 2;
 
       thumbnailsRef.current.scrollTo({
         left: scrollPosition,
         behavior: "smooth",
-      })
+      });
     }
-  }, [currentPhotoIndex, lightboxOpen])
+  }, [currentPhotoIndex, lightboxOpen]);
 
   // Get the current photo safely
-  const currentPhoto = validPhotos[currentPhotoIndex] || validPhotos[0]
+  const currentPhoto = validPhotos[currentPhotoIndex] || validPhotos[0];
 
   // Handle click on the lightbox background for navigation
   const handleLightboxClick = (e: React.MouseEvent) => {
-    if (e.target !== e.currentTarget) return
+    if (e.target !== e.currentTarget) return;
 
-    const rect = lightboxRef.current?.getBoundingClientRect()
-    if (!rect) return
+    const rect = lightboxRef.current?.getBoundingClientRect();
+    if (!rect) return;
 
-    const x = e.clientX - rect.left
-    const width = rect.width
+    const x = e.clientX - rect.left;
+    const width = rect.width;
 
     if (x < width / 3) {
-      goToPrevious()
+      goToPrevious();
     } else if (x > (width * 2) / 3) {
-      goToNext()
+      goToNext();
     }
-  }
+  };
 
   return (
     <>
@@ -238,10 +246,14 @@ export function PhotoGallery({ photos, className }: PhotoGalleryProps) {
         }
 
         .react-photo-album--photo-container::after {
-          content: '';
+          content: "";
           position: absolute;
           inset: 0;
-          background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 50%);
+          background: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.7) 0%,
+            transparent 50%
+          );
           opacity: 0;
           transition: opacity 0.3s;
           pointer-events: none;
@@ -288,8 +300,12 @@ export function PhotoGallery({ photos, className }: PhotoGalleryProps) {
         }
       `}</style>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-        <div className={cn('relative', className)}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className={cn("relative", className)}>
           <PhotoAlbum
             photos={photoAlbumPhotos}
             layout="masonry"
@@ -302,14 +318,15 @@ export function PhotoGallery({ photos, className }: PhotoGalleryProps) {
             onClick={({ index }) => openLightbox(index)}
             renderPhoto={NextJsImageComponent as any}
             // Using "any" type to avoid TypeScript errors with third-party library
-            {...{
+            {...({
               componentsProps: {
                 imageProps: {
                   className: "object-cover rounded-[20px]",
-                  sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                }
-              }
-            } as any}
+                  sizes:
+                    "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+                },
+              },
+            } as any)}
           />
           {/* Metadata overlays */}
           {photoAlbumPhotos.map((photo, index) => (
@@ -317,12 +334,12 @@ export function PhotoGallery({ photos, className }: PhotoGalleryProps) {
               key={`metadata-${index}`}
               className="photo-metadata"
               style={{
-                position: 'absolute',
+                position: "absolute",
                 top: 0,
                 left: 0,
                 right: 0,
                 bottom: 0,
-                pointerEvents: 'none',
+                pointerEvents: "none",
               }}
             >
               <div className="absolute bottom-0 left-0 right-0 p-4">
@@ -331,37 +348,45 @@ export function PhotoGallery({ photos, className }: PhotoGalleryProps) {
                   <div className="bg-black/40 backdrop-blur-sm rounded-lg p-3 text-xs text-white/90">
                     <div className="flex gap-1 mb-1">
                       <Camera size={12} className="text-white/70" />
-                      <span>{photo.photo.metadata.camera || "Unknown camera"}</span>
+                      <span>
+                        {photo.photo.metadata.camera || "Unknown camera"}
+                      </span>
                     </div>
                     <div className="grid grid-cols-2 gap-x-4 gap-y-1">
                       {photo.photo.metadata.lens && (
                         <div>
-                          <span className="text-white/70">Lens:</span> {photo.photo.metadata.lens}
+                          <span className="text-white/70">Lens:</span>{" "}
+                          {photo.photo.metadata.lens}
                         </div>
                       )}
                       {photo.photo.metadata.aperture && (
                         <div>
-                          <span className="text-white/70">Aperture:</span> {photo.photo.metadata.aperture}
+                          <span className="text-white/70">Aperture:</span>{" "}
+                          {photo.photo.metadata.aperture}
                         </div>
                       )}
                       {photo.photo.metadata.shutterSpeed && (
                         <div>
-                          <span className="text-white/70">Shutter:</span> {photo.photo.metadata.shutterSpeed}
+                          <span className="text-white/70">Shutter:</span>{" "}
+                          {photo.photo.metadata.shutterSpeed}
                         </div>
                       )}
                       {photo.photo.metadata.iso && (
                         <div>
-                          <span className="text-white/70">ISO:</span> {photo.photo.metadata.iso}
+                          <span className="text-white/70">ISO:</span>{" "}
+                          {photo.photo.metadata.iso}
                         </div>
                       )}
                       {photo.photo.metadata.focalLength && (
                         <div>
-                          <span className="text-white/70">Focal Length:</span> {photo.photo.metadata.focalLength}
+                          <span className="text-white/70">Focal Length:</span>{" "}
+                          {photo.photo.metadata.focalLength}
                         </div>
                       )}
                       {photo.photo.metadata.takenAt && (
                         <div>
-                          <span className="text-white/70">Date:</span> {photo.photo.metadata.takenAt}
+                          <span className="text-white/70">Date:</span>{" "}
+                          {photo.photo.metadata.takenAt}
                         </div>
                       )}
                     </div>
@@ -408,16 +433,28 @@ export function PhotoGallery({ photos, className }: PhotoGalleryProps) {
                     <div className="flex items-center gap-2 text-sm text-white/70">
                       <Camera size={14} />
                       {/* <span>{currentPhoto.metadata.camera}</span> */}
-                      <span>X100VI</span>
-                      {currentPhoto.metadata.focalLength && <span>| {currentPhoto.metadata.focalLength}</span>}
-                      <span>|</span>
-                      {currentPhoto.metadata.aperture && <span>| {currentPhoto.metadata.aperture}</span>}
-                      <span>|</span>
-                      {currentPhoto.metadata.shutterSpeed && <span>| {currentPhoto.metadata.shutterSpeed}</span>}
-                      {currentPhoto.metadata.iso && <span>| ISO {currentPhoto.metadata.iso}</span>}
-                      {(!currentPhoto.metadata.camera && !currentPhoto.metadata.focalLength && !currentPhoto.metadata.aperture && !currentPhoto.metadata.shutterSpeed && !currentPhoto.metadata.iso) && (
-                        <span>No capture data recorded</span>
+                      <span>EliteHomesVI</span>
+                      {currentPhoto.metadata.focalLength && (
+                        <span>| {currentPhoto.metadata.focalLength}</span>
                       )}
+                      <span>|</span>
+                      {currentPhoto.metadata.aperture && (
+                        <span>| {currentPhoto.metadata.aperture}</span>
+                      )}
+                      <span>|</span>
+                      {currentPhoto.metadata.shutterSpeed && (
+                        <span>| {currentPhoto.metadata.shutterSpeed}</span>
+                      )}
+                      {currentPhoto.metadata.iso && (
+                        <span>| ISO {currentPhoto.metadata.iso}</span>
+                      )}
+                      {!currentPhoto.metadata.camera &&
+                        !currentPhoto.metadata.focalLength &&
+                        !currentPhoto.metadata.aperture &&
+                        !currentPhoto.metadata.shutterSpeed &&
+                        !currentPhoto.metadata.iso && (
+                          <span>No capture data recorded</span>
+                        )}
                     </div>
                   )}
                 </div>
@@ -481,5 +518,5 @@ export function PhotoGallery({ photos, className }: PhotoGalleryProps) {
         </div>
       )}
     </>
-  )
+  );
 }
